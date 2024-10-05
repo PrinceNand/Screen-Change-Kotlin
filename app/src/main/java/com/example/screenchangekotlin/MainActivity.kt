@@ -19,29 +19,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ScreenChangeKotlinTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Developers",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                FirstScreen()
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ScreenChangeKotlinTheme {
-        Greeting("Android")
-    }
-}
