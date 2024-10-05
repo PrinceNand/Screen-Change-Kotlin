@@ -39,14 +39,15 @@ fun MyApp(){
 
         // this will show what will happen on navigate
         composable("firstscreen"){   //own key
-            FirstScreen {
-                navController.navigate("secondscreen")   // route to second screen
+            FirstScreen {name ->
+                navController.navigate("secondscreen/$name")   // route to second screen
             }
         }
 
         // this will show what will happen on navigate
-        composable(route = "secondscreen"){   //own key
-            SecondScreen {
+        composable(route = "secondscreen/{name}"){   //own key
+            val name = it.arguments?.getString("name") ?: "no name"
+            SecondScreen(name = name) {
                 navController.navigate("firstscreen")   // route back to first screen
             }
 
