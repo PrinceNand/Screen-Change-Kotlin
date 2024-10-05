@@ -11,6 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.screenchangekotlin.ui.theme.ScreenChangeKotlinTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,9 +22,34 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ScreenChangeKotlinTheme {
-                FirstScreen()
+                MyApp()
             }
         }
     }
 }
 
+@Composable
+fun MyApp(){
+
+    // initialize
+    val navController = rememberNavController()
+
+    //control the screen
+    NavHost(navController = navController, startDestination = "firstscreen"){
+
+        // this will show what will happen on navigate
+        composable("firstscreen"){   //own key
+            FirstScreen {
+                navController.navigate("secondscreen")   // route to second screen
+            }
+        }
+
+        // this will show what will happen on navigate
+        composable(route = "secondscreen"){   //own key
+            SecondScreen {
+                navController.navigate("firstscreen")   // route back to first screen
+            }
+
+        }
+    }
+}
