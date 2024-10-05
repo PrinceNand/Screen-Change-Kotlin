@@ -39,15 +39,18 @@ fun MyApp(){
 
         // this will show what will happen on navigate
         composable("firstscreen"){   //own key
-            FirstScreen {name ->
-                navController.navigate("secondscreen/$name")   // route to second screen
+            FirstScreen {name, age ->
+                navController.navigate("secondscreen/$name/$age")   // route to second screen
             }
         }
 
         // this will show what will happen on navigate
-        composable(route = "secondscreen/{name}"){   //own key
+        composable(route = "secondscreen/{name}/{age}"){   //own key
             val name = it.arguments?.getString("name") ?: "no name"
-            SecondScreen(name = name) {
+            val ageString = it.arguments?.getString("age") ?: "0"
+            val age = ageString.toIntOrNull() ?: 0 // Convert age from string to integer
+
+            SecondScreen(name = name, age = age) {
                 navController.navigate("firstscreen")   // route back to first screen
             }
 
